@@ -18,6 +18,3 @@ subnets = [
     address_prefix = "10.0.3.0/24"
   }
 ]
-
-admin_username = "azureuser"
-admin_password = "YourP@ssword123!"
