@@ -1,3 +1,6 @@
+# ----------------------------
+# Virtual Network
+# ----------------------------
 resource "azurerm_virtual_network" "vnet" {
   name                = var.vnet_name
   address_space       = var.address_space
@@ -5,6 +8,9 @@ resource "azurerm_virtual_network" "vnet" {
   resource_group_name = var.rg_name
 }
 
+# ----------------------------
+# Subnets
+# ----------------------------
 resource "azurerm_subnet" "subnets" {
   count                = length(var.subnets)
   name                 = var.subnets[count.index].name
@@ -20,7 +26,6 @@ resource "azurerm_network_security_group" "subnet_nsg" {
   name                = "${var.vnet_name}-nsg"
   location            = var.rg_location
   resource_group_name = var.rg_name
-} 
 
   # Allow SSH
   security_rule {
@@ -35,7 +40,7 @@ resource "azurerm_network_security_group" "subnet_nsg" {
     destination_address_prefix = "*"
   }
 
-   # Allow internal VNet communication
+  # Allow internal VNet communication
   security_rule {
     name                       = "Allow-VNet-Internal"
     priority                   = 1002
@@ -47,7 +52,7 @@ resource "azurerm_network_security_group" "subnet_nsg" {
     source_address_prefix      = "VirtualNetwork"
     destination_address_prefix = "VirtualNetwork"
   }
-
+}
 
 # ----------------------------
 # Associate NSG with each subnet
@@ -58,6 +63,9 @@ resource "azurerm_subnet_network_security_group_association" "subnet_assoc" {
   network_security_group_id = azurerm_network_security_group.subnet_nsg.id
 }
 
+# ----------------------------
+# Outputs
+# ----------------------------
 output "vnet_name" {
   value = azurerm_virtual_network.vnet.name
 }
