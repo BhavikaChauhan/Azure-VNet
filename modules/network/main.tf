@@ -52,7 +52,6 @@ resource "azurerm_network_security_group" "subnet_nsg" {
     source_address_prefix      = "VirtualNetwork"
     destination_address_prefix = "VirtualNetwork"
   }
-}
 
  # Allow all outbound traffic (internet + ping)
   security_rule {
