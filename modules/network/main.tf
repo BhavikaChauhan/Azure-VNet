@@ -54,6 +54,20 @@ resource "azurerm_network_security_group" "subnet_nsg" {
   }
 }
 
+ # Allow all outbound traffic (internet + ping)
+  security_rule {
+    name                       = "Allow-All-Outbound"
+    priority                   = 100
+    direction                  = "Outbound"
+    access                     = "Allow"
+    protocol                   = "*"
+    source_port_range          = "*"
+    destination_port_range     = "*"
+    source_address_prefix      = "*"
+    destination_address_prefix = "*"
+  }
+}
+
 # ----------------------------
 # Associate NSG with each subnet
 # ----------------------------
