@@ -13,6 +13,50 @@ resource "azurerm_subnet" "subnets" {
   resource_group_name  = var.rg_name
 }
 
+# ----------------------------
+# Network Security Group
+# ----------------------------
+resource "azurerm_network_security_group" "subnet_nsg" {
+  name                = "${var.vnet_name}-nsg"
+  location            = var.rg_location
+  resource_group_name = var.rg_name
+
+  # Allow SSH
+  security_rule {
+    name                       = "Allow-SSH"
+    priority                   = 1001
+    direction                  = "Inbound"
+    access                     = "Allow"
+    protocol                   = "Tcp"
+    source_port_range          = "*"
+    destination_port_range     = "22"
+    source_address_prefix      = "*"
+    destination_address_prefix = "*"
+  }
+
+  # Allow internal VNet communication
+  security_rule {
+    name                       = "Allow-VNet-Internal"
+    priority                   = 1002
+    direction                  = "Inbound"
+    access                     = "Allow"
+    protocol                   = "*"
+    source_port_range          = "*"
+    destination_port_range     = "*"
+    source_address_prefix      = var.address_space[0]
+    destination_address_prefix = "*"
+  }
+}
+
+# ----------------------------
+# Associate NSG with each subnet
+# ----------------------------
+resource "azurerm_subnet_network_security_group_association" "subnet_assoc" {
+  count                     = length(azurerm_subnet.subnets)
+  subnet_id                 = azurerm_subnet.subnets[count.index].id
+  network_security_group_id = azurerm_network_security_group.subnet_nsg.id
+}
+
 output "vnet_name" {
   value = azurerm_virtual_network.vnet.name
 }
