@@ -20,6 +20,7 @@ resource "azurerm_network_security_group" "subnet_nsg" {
   name                = "${var.vnet_name}-nsg"
   location            = var.rg_location
   resource_group_name = var.rg_name
+} 
 
   # Allow SSH
   security_rule {
