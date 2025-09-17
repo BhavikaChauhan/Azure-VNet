@@ -34,7 +34,7 @@ resource "azurerm_network_security_group" "subnet_nsg" {
     destination_address_prefix = "*"
   }
 
-  # Allow internal VNet communication
+   # Allow internal VNet communication
   security_rule {
     name                       = "Allow-VNet-Internal"
     priority                   = 1002
@@ -43,10 +43,10 @@ resource "azurerm_network_security_group" "subnet_nsg" {
     protocol                   = "*"
     source_port_range          = "*"
     destination_port_range     = "*"
-    source_address_prefix      = var.address_space[0]
-    destination_address_prefix = "*"
+    source_address_prefix      = "VirtualNetwork"
+    destination_address_prefix = "VirtualNetwork"
   }
-}
+
 
 # ----------------------------
 # Associate NSG with each subnet
