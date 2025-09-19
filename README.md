@@ -118,7 +118,7 @@ terraform apply -auto-approve
 ## 📖 Detailed Tutorial
 
 👉 For a complete step-by-step guide with explanations, check out my blog:
-**[Automating Azure Infrastructure with Terraform: VNets, Subnets, and Virtual Machines](YOUR-BLOG-LINK-HERE)**
+**[Automating Azure Infrastructure with Terraform: VNets, Subnets, and Virtual Machines](https://medium.com/@bhavika.engineered/automating-azure-infrastructure-with-terraform-vnets-subnets-and-virtual-machines-83b299b2b44b**
 
 ---
 
