@@ -30,11 +30,21 @@ This forms the foundation for production-ready environments such as **load balan
 
 ```
 Azure-VNet/
-│── main.tf            # Main Terraform configuration  
-│── variables.tf       # Input variables for customization  
-│── outputs.tf         # Outputs (VM private IPs, etc.)  
-│── terraform.tfvars   # Variable values (ignored if using defaults)  
-│── README.md          # Project documentation  
+ ├─ modules/
+ │   ├─ resource_group/
+ │   │   └─ main.tf
+ |   |   └─ variables.tf 
+ │   ├─ network/
+ │   │   └─ main.tf
+ |   |   └─ variables.tf
+ │   └─ vm/
+ │       └─ main.tf
+ |   |   └─ variables.tf
+ ├─ main.tf
+ ├─ variables.tf
+ ├─ providers.tf 
+ ├─ outputs.tf
+ └─ terraform.tfvars
 ```
 
 ---
